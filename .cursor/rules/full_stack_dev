@@ -1,0 +1,120 @@
+---
+description: react.js Full-Stack Engineering and UI/UX Best Practices
+globs: "*.ts,*.tsx,*.js,*.jsx,*.md"
+---
+# Next.js Engineering Standards
+
+Establishes a baseline for optimized, maintainable, and secure React/Next.js code using modern UI/UX frameworks and robust software engineering practices.
+
+<rule>
+name: nextjs_fullstack_best_practices
+description: Enforce modern TypeScript/React/Next.js standards, security, UI/UX consistency, and maintainability
+filters:
+  - type: file_extension
+    pattern: "\\.(ts|tsx|js|jsx|md)$"
+
+actions:
+  - type: enforce
+    conditions:
+      # --- Code Style and Structure ---
+      - pattern: "class\\s+[A-Z]"
+        message: "Avoid classes. Use functional components and declarative patterns."
+
+      - pattern: "var\\s"
+        message: "Use 'let' or 'const' for variable declarations; avoid 'var'."
+
+      - pattern: "(?i)(temp|data)[0-9]"
+        message: "Variable names must be descriptive and use auxiliary verbs (e.g., isLoading, hasError)."
+
+      - pattern: "export default function [A-Z]"
+        message: "Export all components as named exports, not default. Improve discoverability and testability."
+
+      - pattern: "[A-Z][a-zA-Z0-9]*\\s*=\\s*\\("
+        message: "Structure files with clear sections: components, helpers, static content, and types."
+
+      # --- Directory Naming ---
+      - pattern: "components/[A-Z]"
+        message: "Use lowercase and dashes for directory names (e.g., components/auth-wizard)."
+
+      # --- Optimization and Best Practices ---
+      - pattern: "import\\s+.*\\s+from\\s+['\"]react['\"]"
+        message: "Use dynamic imports where possible for code splitting and optimization."
+
+      # --- Responsive Design & Images ---
+      - pattern: "<img[^>]+(?!loading=[\"']lazy[\"'])"
+        message: "Images must use lazy loading and modern formats (e.g., WebP) with defined width/height."
+
+      # --- Error Handling & Validation ---
+      - pattern: "try\\s*{[^}]*}\\s*catch\\s*\\([^)]*\\)\\s*{[^}]*console\\.log"
+        message: "Handle errors using custom error types and early returns. Do not use console.log for errors—use a structured logging system."
+
+      - pattern: "zod\\.object"
+        message: "Use Zod for schema validation of user input and API data."
+
+      # --- UI and Styling ---
+      - pattern: "className=\"[^\"]*\""
+        message: "Leverage Tailwind CSS, Shadcn UI, or Radix UI for styling and ensure consistency."
+
+      # --- State Management and Data Fetching ---
+      - pattern: "(useState|useReducer)\\("
+        message: "Global state and server state should use modern solutions like Zustand or TanStack Query. Avoid excessive prop drilling."
+
+      # --- Security and Performance ---
+      - pattern: "dangerouslySetInnerHTML"
+        message: "Never use dangerouslySetInnerHTML unless strictly necessary, and always sanitize input first."
+
+      - pattern: "(password|secret|token)[\\s:=]+[\\\"'].*[\\\"']"
+        message: "Do not hardcode secrets or credentials. Use secure secret management solutions."
+
+      - pattern: "useEffect\\("
+        message: "Minimize use of useEffect; prefer React Server Components (RSC) and data-fetching methods from Next.js where possible."
+
+      # --- Testing and Documentation ---
+      - pattern: "test\\("
+        message: "All components and logic must be covered by unit tests (Jest/React Testing Library)."
+
+      - pattern: "/\\*\\*"
+        message: "Use JSDoc comments for functions and components for improved IDE intellisense."
+
+      - pattern: "(//|/\\*)\\s*TODO"
+        message: "Do not leave TODO comments in production code. Use issue tracker for all pending work."
+
+      # --- General Process ---
+      - pattern: "(console\\.log|console\\.warn|console\\.error)"
+        message: "Avoid console logs in committed code except in temporary debugging during development."
+</rule>
+
+---
+
+## Engineering Workflow
+
+1. **Deep Dive Analysis**  
+   - Analyze technical requirements and constraints before writing code.
+
+2. **Planning**  
+   - Document architecture and solution flow using `<PLANNING>` tags if needed.
+
+3. **Implementation**  
+   - Implement step-by-step, adhering strictly to standards and best practices.
+
+4. **Review and Optimize**  
+   - Continuously review for code quality, optimizations, security, and scalability.
+
+5. **Finalization**  
+   - Ensure all acceptance criteria, security, and performance requirements are met.
+   - Conduct final peer review and documentation update.
+
+---
+
+## Methodology
+
+- **System 2 Thinking:**  
+  Break requirements into logical, manageable units and solve analytically.
+
+- **Tree of Thoughts:**  
+  Consider multiple approaches and outcomes before finalizing implementation.
+
+- **Iterative Refinement:**  
+  Continuously revisit and refine code for edge cases, performance, and maintainability.
+
+---
